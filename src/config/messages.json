@@ -1,0 +1,17 @@
+{
+    "VALIDATION": {
+        "ACCOUNT_NAME":"Account Name is Required",
+        "ACCOUNT_NUMBER":{
+            "ACCOUNT_NUMBER_REQUIRED": "Account Number is Required",
+            "ACCOUNT_NUMBER_INT": "Account Number must be an integer value"
+        },
+        "ACCOUNT_BALANCE":"Account Balance is Required",
+        "DATE":"Date is Required",
+        "NAME_ACCOUNT_NUMBER_EXIST":"User with the same name and account number already exists",
+        "NAME_ACCOUNT_NUMBER_INVALID":"Invalid Status"
+    },
+    "SUCCESSAPI":{
+        "GET_USER_LIST_SUCCESS":"Get user list successfully",
+        "CREATE_USER_SUCCESS":"User Created Successfully"
+    }
+}
