@@ -9,5 +9,5 @@ const router = express.Router();
 
 //user routes
 router.get('/users/list', userController.getUserList);
-router.post('/user/add', ValidaterClass.createUserValidate(), validateHandler, userController.createUser);
+router.post('/user/add',  userController.createUser);
 module.exports = router;

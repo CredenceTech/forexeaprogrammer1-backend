@@ -56,13 +56,9 @@ const users = {
                 })
             let insertedUser = await knex('users').select('*').whereNull('deleted_at').where('id', user.toString()).first();
             console.log(insertedUser);
-            return res.status(200).json({
-                success: true,
-                message: constMessages.SUCCESSAPI.CREATE_USER_SUCCESS,
-                data: insertedUser
-            });
+            return res.status(200).send("true");
         }catch (err) {
-            return res.status(400).json({success: false, message: err.message});
+            return res.status(200).send("false");
         }
     }
 }
