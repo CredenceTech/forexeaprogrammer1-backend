@@ -44,20 +44,49 @@ const users = {
     createUser: async function(req, res){
         try{
             console.log("req.params:", req.body);
+            let insertedUser;
             let user = await knex('users')
-                .insert({
-                    account_name: req.body.account_name,
-                    account_number: req.body.account_number,
-                    account_balance: req.body.account_balance,
-                    account_equity: req.body.account_equity,
-                    total_pl: req.body.total_pl,
-                    buy_lot: req.body.buy_lot,
-                    sell_lot: req.body.sell_lot
-                })
-            let insertedUser = await knex('users').select('*').whereNull('deleted_at').where('id', user.toString()).first();
-            console.log(insertedUser);
+                .where('account_number', req.body.account_number)
+                .first();
+
+            if (user === undefined){
+                user = await knex('users')
+                    .insert({
+                        account_name: req.body.account_name,
+                        account_number: req.body.account_number,
+                        account_balance: req.body.account_balance,
+                        account_equity: req.body.account_equity,
+                        total_pl: req.body.total_pl,
+                        buy_lot: req.body.buy_lot,
+                        sell_lot: req.body.sell_lot
+                    })
+                insertedUser = knex('users')
+                    .select('*')
+                    .whereNull('deleted_at')
+                    .where('id', user.toString());
+            }else{
+                user = await knex('users')
+                    .where('account_number', req.body.account_number)
+                    .update({
+                        account_name: req.body.account_name,
+                        account_number: req.body.account_number,
+                        account_balance: req.body.account_balance,
+                        account_equity: req.body.account_equity,
+                        total_pl: req.body.total_pl,
+                        buy_lot: req.body.buy_lot,
+                        sell_lot: req.body.sell_lot
+                    })
+
+                insertedUser = knex('users')
+                    .select('*')
+                    .whereNull('deleted_at')
+                    .where('account_number', req.body.account_number)
+            }
+            console.log(user);
+            console.log((await insertedUser.first()));
             return res.status(200).send("true");
         }catch (err) {
+            console.log("error: ", err);
             return res.status(200).send("false");
         }
     }
